@@ -7,3 +7,7 @@ It uses express and mongo for the backend and jquery for the front end.
 The info will be saved until you delete or edit it thanks to mongodb.
 
 Have a nice day.
+
+Heroku link:
+
+https://pure-waters-3003.herokuapp.com/
