@@ -3,6 +3,7 @@
 $(document).ready(init);
 
 var index = {};
+var timeChange = 0;
 
 function init(){
   $('#submit').on('click', addMessage);
@@ -15,20 +16,21 @@ function saveEdit(){
   var message = {};
   message.name = $('#editName').val();
   message.posted = $('#editMessage').val();
-  message.time = $('#editTime').val();
-  message.index = index.value;
+  message.time = Date.now();
+  message.change = timeChange;
 
   $('input').each(function(index, input){
     $(input).val('');
   });
 
   $.ajax({
-    url: '/messageBoard/update',
+    url: '/messageBoard',
     type: 'PUT',
     data: message
   })
   .done(function(data){
-    $('#messageList').children("tr:nth-child(" + parseInt(index.value + 1) + ")").replaceWith(messageRow(data));
+    console.log(data);
+    $('#messageList').children("tr:nth-child(" + parseInt(index.value + 1) + ")").replaceWith(messageRow(message));
   })
   .fail(function(err){
   })
@@ -44,18 +46,19 @@ function openModalEdit(e){
   var $tdTime = $targetRow.children('.time');
   $('.editName').val($tdName.text());
   $('.editMessage').val($tdMessage.text());
-  $('.editTime').val($tdTime.text());
+  timeChange = $tdTime.text();
 }
 
 function deleteMessage(e){
   var $target = $(e.target);
   var $tr = $target.closest('tr');
   var index = $tr.index();
+  var timeStamp = $tr.children('.time').text();
 
   $.ajax({
-    url: "/messageBoard/delete",
+    url: "/messageBoard",
     type: "DELETE",
-    data: {index: index}
+    data: {time: timeStamp}
   })
   .done(function(data){
     $tr.remove();

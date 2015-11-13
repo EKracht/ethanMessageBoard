@@ -6,6 +6,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/messageApp')
+
 var app = express();
 
 app.set('view engine', 'jade');

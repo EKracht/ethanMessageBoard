@@ -6,50 +6,37 @@ var router = express.Router();
 var Message = require('../models/message');
 
 router.get('/', function(req, res){
-  Message.findAll(function(err, messages){ 
-    console.log(messages);
-    if (err) {
-      res.status(400).send(err);
-    } else {
-      res.render('messageBoard', {title: 'Message Board', items: messages});
-    }
+  Message.find({}, function(err, messages){ 
+    if (err) return res.status(400).send(err);
+    res.render('messageBoard', {title: 'Message Board', items: messages});
   });
 });
 
 router.post('/', function(req, res){
-  var message = req.body;
-  Message.create(message, function(err){
-    if (err) {
-      res.status(400).send(err);
-    } else {
-      res.send('message created!');
-    }
+  var message = new Message(req.body);
+  message.save(function(err, savedMessage){
+    if (err) return res.status(400).send(err);
+    res.send(savedMessage);
   })
 });
 
-router.delete('/delete', function(req, res){
-  var index = req.body.index;
-  console.log('route', index);
-  Message.remove(index, function(err){
-    if (err) {
-      res.status(400).send(err);
-    } else {
-      res.send('message deleted!');
-    }
+router.delete('/', function(req, res){
+  var timeStamp = req.body.time;
+  Message.remove({time: timeStamp}, function(err, message){
+    if (err) return res.status(400).send(err);
+    res.send();
   });
 });
 
-router.put('/update', function(req, res){
-  var message = req.body;
-  console.log('route', message);
-  Message.update(message, function(err){
-    if (err) {
-      res.status(400).send(err);
-    } else {
-      res.send(message);
-    }
+router.put('/', function(req, res){
+  var name = req.body.name;
+  var posted = req.body.posted;
+  var timeStamp = req.body.time;
+  var timeOriginal = req.body.change;
+  Message.update({time: timeOriginal}, {name: name, posted: posted, time: timeStamp}, function(err, message){
+    if (err) return res.status(400).send(err);
+    res.send();
   });
 });
-
 
 module.exports = router;
