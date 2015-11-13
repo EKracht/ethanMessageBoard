@@ -1,9 +1,9 @@
-This is my CRUD app contact list.
+This is my CRUD app message board.
 
-This will allow you to add to the contact list, remove contact rows, and edit contact rows.
+This will allow you to add to the message board, remove messages, and edit message rows. It will also update your time with the time of your edit.
 
-The info will be saved in the server until you delete it.
+It uses express and mongo for the backend and jquery for the front end.
 
-Link to heroku:
+The info will be saved until you delete or edit it thanks to mongodb.
 
-https://floating-mesa-4549.herokuapp.com/
+Have a nice day.
