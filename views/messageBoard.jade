@@ -1,0 +1,48 @@
+extends ./layout.jade
+
+block content
+  .container
+    - var properties = ['name', 'message', 'time', 'date']
+    .row
+      h1= title
+    .row
+      each prop in properties
+        label #{prop.toUpperCase()}:
+        input(id= prop)
+      button.btn.btn-success#submit Add
+    .row
+      table.table.table-hover
+        thead
+          tr
+            each prop in properties
+              th= prop
+            th: th
+        tbody#messageList
+          each item, index in items
+            tr
+              each prop in properties
+                td(class= prop, id= prop)= items[index][prop]
+              td.edit.text-center
+                i.fa.fa-pencil-square-o.fa-lg(data-target='#myModal', data-toggle='modal')
+              td.delete.text-center
+                i.fa.fa-trash-o.fa-lg
+
+      #myModal.modal.fade(role='dialog')
+        .modal-dialog.modal-lg
+          .modal-content
+            .modal-body
+              input#editName.editName(type='text', placeholder='Name')
+              br
+              input#editMessage.editMessage(type='text', placeholder='Message')
+              br
+              input#editTime.editTime(type='number', placeholder='Time')
+              br
+              input#editDate.editDate(type='text', placeholder='Date')
+              br
+              p.msg(align='center')
+              br
+              button#saveEdit.btn.btn-primary.btn-lg.center-block.submit(type='button', data-dismiss='modal') Save Message
+
+block scripts
+
+

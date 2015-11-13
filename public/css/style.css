@@ -1,0 +1,44 @@
+
+.edit:hover, .delete:hover {
+  cursor: pointer;
+}
+
+.edit:hover {
+  color: green;
+}
+
+.delete:hover {
+  color: red;
+}
+
+#myModal {
+  text-align: center;
+}
+
+input {
+  margin: 10px;
+}
+
+h1, p {
+  text-align: center;
+}
+
+button {
+  margin-left: 10px;
+}
+
+tbody, tr {
+  border: 2px solid white;
+}
+
+thead {
+  font-size: 19px;
+}
+
+tbody {
+  font-size: 15px;
+}
+
+label {
+  font-size: 16px;
+}
