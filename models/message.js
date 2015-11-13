@@ -1,4 +1,17 @@
+'use strict';
+
+// var mongoose = require('mongoose');
+
+// var messageSchema = mongoose.Schema({
+//   name: String,
+//   posted: String,
+//   time: Number,
+// });
+
+// var Message = mongoose.model('Message', messageSchema);
+
 var fs = require('fs');
+var moment = require('moment');
 
 var Message = {};
 

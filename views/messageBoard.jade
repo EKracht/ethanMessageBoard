@@ -2,13 +2,15 @@ extends ./layout.jade
 
 block content
   .container
-    - var properties = ['name', 'message', 'time', 'date']
+    - var properties = ['name', 'posted', 'time']
     .row
       h1= title
     .row
-      each prop in properties
-        label #{prop.toUpperCase()}:
-        input(id= prop)
+      label NAME:
+      input#addName
+      label MESSAGE:
+      input#addMessage
+
       button.btn.btn-success#submit Add
     .row
       table.table.table-hover
@@ -36,8 +38,6 @@ block content
               input#editMessage.editMessage(type='text', placeholder='Message')
               br
               input#editTime.editTime(type='number', placeholder='Time')
-              br
-              input#editDate.editDate(type='text', placeholder='Date')
               br
               p.msg(align='center')
               br

@@ -7,6 +7,7 @@ var Message = require('../models/message');
 
 router.get('/', function(req, res){
   Message.findAll(function(err, messages){ 
+    console.log(messages);
     if (err) {
       res.status(400).send(err);
     } else {
@@ -38,7 +39,7 @@ router.delete('/delete', function(req, res){
   });
 });
 
-router.post('/update', function(req, res){
+router.put('/update', function(req, res){
   var message = req.body;
   console.log('route', message);
   Message.update(message, function(err){

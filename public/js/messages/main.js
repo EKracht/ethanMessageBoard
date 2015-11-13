@@ -16,7 +16,6 @@ function saveEdit(){
   message.name = $('#editName').val();
   message.posted = $('#editMessage').val();
   message.time = $('#editTime').val();
-  message.date = $('#editDate').val();
   message.index = index.value;
 
   $('input').each(function(index, input){
@@ -25,7 +24,7 @@ function saveEdit(){
 
   $.ajax({
     url: '/messageBoard/update',
-    type: 'POST',
+    type: 'PUT',
     data: message
   })
   .done(function(data){
@@ -41,18 +40,11 @@ function openModalEdit(e){
   index.value = $tr.index();
   var $targetRow = $target.closest('tr');
   var $tdName = $targetRow.children('.name');
-  var $tdMessage = $targetRow.children('.message');
+  var $tdMessage = $targetRow.children('.posted');
   var $tdTime = $targetRow.children('.time');
-  var $tdDate = $targetRow.children('.date');
   $('.editName').val($tdName.text());
   $('.editMessage').val($tdMessage.text());
   $('.editTime').val($tdTime.text());
-  $('.editDate').val($tdDate.text());
-
-  console.log($('.editName'));
-  console.log($('.editMessage'));
-  console.log($('.editTime'));
-  console.log($('.editDate'));
 }
 
 function deleteMessage(e){
@@ -74,10 +66,9 @@ function deleteMessage(e){
 
 function addMessage(){
   var message = {};
-  message.name = $('input#name').val();
-  message.posted = $('input#message').val();
-  message.time = $('input#time').val();
-  message.date = $('input#date').val();
+  message.name = $('#addName').val();
+  message.posted = $('#addMessage').val();
+  message.time = Date.now();
 
   $('input').each(function(index, input){
     $(input).val('');
@@ -86,7 +77,6 @@ function addMessage(){
   $.post('/messageBoard', message)
   .done(function(data){
     var $messageRow = messageRow(message);
-    console.log($messageRow);
     $('#messageList').append($messageRow);
   })
   .fail(function(err){
@@ -96,9 +86,8 @@ function addMessage(){
 function messageRow(message){
   var $tr = $('<tr>');
   var $name = $('<td>').addClass('name').text(message.name);
-  var $posted = $('<td>').addClass('message').text(message.posted);
+  var $posted = $('<td>').addClass('posted').text(message.posted);
   var $time = $('<td>').addClass('time').text(message.time);
-  var $date = $('<td>').addClass('date').text(message.date);
 
   var $editTd = $('<td>').addClass('edit text-center');
   var $editIcon = $('<i>').addClass('fa fa-pencil-square-o fa-lg').attr('data-target','#myModal').attr('data-toggle','modal')
@@ -108,6 +97,6 @@ function messageRow(message){
   var $deleteIcon = $('<i>').addClass('fa fa-trash-o fa-lg')
   $deleteTd.append($deleteIcon)
 
-  $tr.append($name, $posted, $time, $date, $editTd, $deleteTd);
+  $tr.append($name, $posted, $time, $editTd, $deleteTd);
   return $tr;
 }
